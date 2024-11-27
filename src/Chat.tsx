@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
-import { format } from 'date-fns';
 import EmojiPicker, { EmojiStyle } from 'emoji-picker-react';
+import { getTimeDisplay, textareaAutoAdjustHeight } from './lib/utils';
+import { ArrowOutline, SmileFaceSolid } from './components/icons';
+import ActiveMembers, { TMemember } from './ActiveMembers';
 
 const getUsername = () => {
   let username: string | null;
@@ -50,14 +52,24 @@ let socket: Socket;
 export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
   const [messages, setMessages] = useState<TMessage[]>(storedMessages);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [showActiveMembers, setShowActiveMembers] = useState(false);
+
   //
   const [typingMessages, setTypingMessage] = useState<{
     [key: string]: TMessageTyping;
   }>({});
 
+  const [activeMembers, setActiveMembers] = useState<{
+    [key: string]: TMemember;
+  }>({});
+
   const messagesBox = useRef<HTMLDivElement | null>(null);
 
   const clientID = useRef('');
+
+  const handleShowActiveMembers = () => {
+    setShowActiveMembers(!showActiveMembers);
+  };
 
   useEffect(() => {
     const username = getUsername();
@@ -107,6 +119,7 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
         return newMessages;
       });
     };
+
     socket.on('chat message', handleMessage);
 
     input?.addEventListener('input', handleChange);
@@ -151,13 +164,21 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
       console.log(socket.connected); // false
     };
 
+    const handleJoin = (members: { [key: string]: TMemember }) => {
+      console.log(members)
+      setActiveMembers(members);
+    };
+
+    socket.on('join', handleJoin);
+
     socket.on('disconnect', handleDisconnect);
+
     return () => {
       socket.off('chat message', handleMessage);
       socket.off('typing', handleTyping);
       socket.off('connect', handleConntect);
       socket.off('disconnect', handleDisconnect);
-
+      socket.off('join', handleJoin);
       form?.removeEventListener('submit', handleSendMessage);
       input?.removeEventListener('input', handleChange);
       input?.removeEventListener('blur', handleInputBlur);
@@ -177,8 +198,7 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
     }
   }, [messages]);
 
-  const handleSendMessage = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSendMessage = () => {
     const input = document.getElementById('input') as HTMLInputElement;
     if (input && input.value) {
       socket.emit('chat message', {
@@ -200,13 +220,21 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
   };
 
   const messageTypingsList = Object.values(typingMessages);
+  const members = Object.values(activeMembers).reverse();
   return (
     <div className="h-screen flex pt-5 justify-center">
-      <div className="h-[90%] flex flex-col px-2 rounded-xl max-w-xl mx-auto overflow-hidden border-orange-200/10 bg-gray-950 w-full">
-        <header className="bg-slate-950 sm:py-4 px-3 py-3 rounded-t-md flex justify-between gap-5 items-center">
+      <div className="h-[90%] border flex flex-col px-2 rounded-xl max-w-xl mx-auto overflow-hidden border-slate-800/80 bg-gray-950 w-full relative">
+        <header className="bg-slate-950 sm:py-4 px-3 py-3 flex justify-between gap-5 items-center">
           <h1 className="text-white max-sm:text-sm font-semibold text-xl">
             🎃 HAUNTED CHAT ROOM 👻
+            <br />
           </h1>
+          <button
+            onClick={handleShowActiveMembers}
+            className="hover:underline text-orange-500 font-bold"
+          >
+            <span>Active: {members.length}</span>
+          </button>
           <button
             className="text-xl active:scale-95 max-sm:text-lg"
             title="Caution"
@@ -215,9 +243,15 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
             ⚠️
           </button>
         </header>
+        <ActiveMembers
+          members={members}
+          show={showActiveMembers}
+          handleShowActiveMembers={handleShowActiveMembers}
+          uuid={getUUID()}
+        />
         <div
           ref={messagesBox}
-          className="flex-1 bg-[#0a0d1a] p-4 overflow-x-hidden flex flex-col gap-4 rounded-lg"
+          className="flex-1 bg-gradient-to-tl from-[#0a0d1a] to-slate-900/40 p-4 overflow-x-hidden flex flex-col gap-4 rounded-xl"
         >
           {messageTypingsList.length < 1 && messages.length < 1 ? (
             <div className="text-orange-500">
@@ -233,16 +267,19 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
                       className="flex justify-end"
                       key={`message-${message.clientID}-${i}`}
                     >
-                      <div className="flex justify-end bg-orange-700  max-w-[85%] text-neutral-100 pr-4 pl-5 py-3 rounded-l-3xl rounded-br-3xl rounded-tr-md">
+                      <div className="flex justify-end bg-slate-900 border-slate-700/40 border max-w-[85%] text-neutral-100 pr-4 pl-5 py-3 rounded-l-3xl rounded-br-3xl rounded-tr-md">
                         <span className="break-words whitespace-pre-line ">
                           {message.value}
                         </span>
                       </div>
                     </div>
                   ) : (
-                    <div key={`message-${message.clientID}-${i}`}>
+                    <div
+                      key={`message-${message.clientID}-${i}`}
+                      className="relative mb-4"
+                    >
                       <div className="max-w-[85%] flex">
-                        <div className="flex flex-col bg-slate-950 border border-orange-600/20 pl-4 pr-8 py-3 gap-1 rounded-r-3xl rounded-bl-3xl rounded-tl-md">
+                        <div className="flex flex-col bg-slate-950 border border-slate-700/50 pl-4 pr-8 py-3 gap-1 rounded-r-3xl rounded-bl-3xl rounded-tl-md">
                           <span className="font-bold text-sm uppercase  text-orange-600">
                             {message.username}
                           </span>
@@ -251,9 +288,9 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
                           </span>
                         </div>
                       </div>
-                      <span className="text-[10px] pl-2 text-neutral-400 ">
+                      <span className="absolute text-[12px] pl-2 text-neutral-400">
                         {' '}
-                        {format(message.time, 'eee, MMM d, yyyy h:mm a')}
+                        {getTimeDisplay(message.time)}
                       </span>
                     </div>
                   )
@@ -281,17 +318,26 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
 
         <form
           id="form"
-          onSubmit={handleSendMessage}
-          className="flex w-full sm:py-4 py-3  border-orange-300 gap-2"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSendMessage();
+          }}
+          className="flex w-full sm:py-4 py-3  border-orange-300 gap-2 items-end"
         >
           <div className="relative flex items-center">
-            <button
-              type="button"
-              onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-              className=" text-white sm:text-3xl p-2 rounded-full border-orange-500/30 text-xl border active:border-orange-500/60"
-            >
-              👿
-            </button>
+            <div>
+              <button
+                data-emoji-picker-toggle
+                type="button"
+                className="flex text-orange-500  active:scale-95 px-1 py-2.5"
+                onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+              >
+                <span className="w-6 h-6">
+                  <SmileFaceSolid />
+                </span>
+              </button>
+            </div>
+
             {showEmojiPicker && (
               <div className="absolute left-0 bottom-16 right-4">
                 <EmojiPicker
@@ -302,21 +348,39 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
             )}
           </div>
 
-          <div className="flex flex-1">
-          <input
-            className="flex-1 w-full ring-orange-500  outline-0 focus:ring-2 px-3 rounded-l-md  border-orange-500/30 border bg-[#0a0d1a] text-white max-sm:text-sm"
-            id="input"
-            autoComplete="off"
-            placeholder="Type a spooky message..."
-          />
-
+          <div className="w-full flex items-end">
+            <textarea
+              className="flex-1 focus:ring-offset-2 ring-orange-500 outline-0 focus:ring-2 py-2.5 pl-3 rounded-md focus:ring-offset-gray-900 border-slate-700/70 border bg-slate-900 text-white max-sm:text-sm resize-none placeholder:select-none placeholder:text-neutral-500 w-full "
+              id="input"
+              rows={1}
+              autoComplete="off"
+              placeholder="Type a spooky message..."
+              onInput={(e) => {
+                const field = e.currentTarget;
+                if (field instanceof HTMLTextAreaElement) {
+                  textareaAutoAdjustHeight(field);
+                }
+              }}
+              onKeyDown={(e) => {
+                if (!e.shiftKey && e.key === 'Enter') {
+                  e.preventDefault();
+                  const field = e.currentTarget;
+                  if (field instanceof HTMLTextAreaElement) {
+                    field.style.height = 'auto';
+                    handleSendMessage();
+                  }
+                }
+              }}
+            ></textarea>
+          </div>
           <button
             type="submit"
-            className="bg-orange-600 text-white px-6 py-3 active:bg-orange-700 transition-colors font-bold text-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 max-sm:px-2 max-sm:text-sm focus:ring-offset-gray-900 rounded-r-md"
+            className="flex rounded-xl bg-primary p-[0.25rem] text-primary-foreground transition active:scale-[0.9] active:bg-primary-dark items-center mb-1 bg-orange-500 text-black"
           >
-            Haunt
+            <span className="sm:h-7 sm:w-7 h-6 w-6">
+              <ArrowOutline />
+            </span>
           </button>
-          </div>
         </form>
       </div>
     </div>
