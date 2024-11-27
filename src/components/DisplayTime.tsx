@@ -49,7 +49,6 @@ export default function DisplayTime({
         // Update the time display and reset the interval if necessary
         const newTimeDisplay = getTimeDisplay(time);
         setTimeDisplay(newTimeDisplay);
-        console.log(delay);
         // If the delay changed, clear the previous interval and set a new one
         if (newDelay !== delay) {
           clearInterval(intervalId);
