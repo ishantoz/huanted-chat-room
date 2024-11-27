@@ -30,7 +30,7 @@ export const getTimeDisplay = (utcTimestamp: string | Date): string => {
   const SECONDS_IN_A_DAY = 86400;
 
   // Display "now" for differences under 15 seconds
-  if (timeDiffInSeconds < 15) {
+  if (timeDiffInSeconds < 10) {
     return 'now';
   }
 

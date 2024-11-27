@@ -1,4 +1,5 @@
-import { formatNumber, getTimeDisplay } from './lib/utils';
+import DisplayTime from './components/DisplayTime';
+import { formatNumber } from './lib/utils';
 
 export type TMemember = {
   username: string;
@@ -46,7 +47,7 @@ export default function ActiveMembers({
             <div>
               {uuid === member.uuid ? (
                 <h3 className="text-blue-500 font-semibold cursor-pointer hover:underline">
-                 You ({member.username})
+                  You ({member.username})
                 </h3>
               ) : (
                 <h3 className="text-neutral-200 font-semibold cursor-pointer hover:underline">
@@ -55,9 +56,9 @@ export default function ActiveMembers({
               )}
               <span className="text-sm text-green-400">Active</span>
             </div>
-            <span className="text-xs text-orange-500/80">
-              Joined at {getTimeDisplay(member.joined_at)}
-            </span>
+            <div className="flex">
+              <DisplayTime prefix="Joined at" time={member.joined_at} />
+            </div>
           </div>
         ))}
       </div>

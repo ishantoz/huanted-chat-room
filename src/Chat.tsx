@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 import EmojiPicker, { EmojiStyle } from 'emoji-picker-react';
-import { getTimeDisplay, textareaAutoAdjustHeight } from './lib/utils';
+import { textareaAutoAdjustHeight } from './lib/utils';
 import { ArrowOutline, SmileFaceSolid } from './components/icons';
 import ActiveMembers, { TMemember } from './ActiveMembers';
+import DisplayTime from './components/DisplayTime';
 
 const getUsername = () => {
   let username: string | null;
@@ -49,6 +50,7 @@ const storedMessages = localStorage.getItem('messages')
   ? (JSON.parse(localStorage.getItem('messages') ?? '') as TMessage[])
   : [];
 let socket: Socket;
+
 export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
   const [messages, setMessages] = useState<TMessage[]>(storedMessages);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -125,8 +127,6 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
     input?.addEventListener('input', handleChange);
 
     const handleTyping = (typingMessage: TMessageTyping) => {
-
-      console.log(typingMessage)
       if (typingMessage.type === 'typing' && typingMessage.uuid !== getUUID()) {
         setTypingMessage((preTypingMessages) => ({
           ...preTypingMessages,
@@ -167,7 +167,6 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
     };
 
     const handleJoin = (members: { [key: string]: TMemember }) => {
-      console.log(members)
       setActiveMembers(members);
     };
 
@@ -223,6 +222,38 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
 
   const messageTypingsList = Object.values(typingMessages);
   const members = Object.values(activeMembers).reverse();
+
+  const messageItem = useMemo(() => {
+    return messages.map((message, i) =>
+      message.uuid === getUUID() ? (
+        <div
+          className="flex justify-end"
+          key={`message-${message.clientID}-${i}`}
+        >
+          <div className="flex justify-end bg-slate-900 border-slate-700/40 border max-w-[85%] text-neutral-100 pr-4 pl-5 py-3 rounded-l-3xl rounded-br-3xl rounded-tr-md">
+            <span className="break-words whitespace-pre-line ">
+              {message.value}
+            </span>
+          </div>
+        </div>
+      ) : (
+        <div key={`message-${message.clientID}-${i}`} className="relative mb-4">
+          <div className="max-w-[85%] flex">
+            <div className="flex flex-col bg-slate-950 border border-slate-700/50 pl-4 pr-8 py-3 gap-1 rounded-r-3xl rounded-bl-3xl rounded-tl-md">
+              <span className="font-bold text-sm uppercase  text-orange-600">
+                {message.username}
+              </span>
+              <span className="break-words whitespace-pre-line  text-neutral-300">
+                {message.value}
+              </span>
+            </div>
+          </div>
+          <div className="absolute -bottom-5 left-0"><DisplayTime time={message.time} /></div>
+        </div>
+      )
+    );
+  }, [messages]);
+
   return (
     <div className="h-screen flex pt-5 justify-center">
       <div className="h-[90%] border flex flex-col px-2 rounded-xl max-w-xl mx-auto overflow-hidden border-slate-800/80 bg-gray-950 w-full relative">
@@ -262,42 +293,7 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
             </div>
           ) : (
             <>
-              <div className="flex flex-col gap-4">
-                {messages.map((message, i) =>
-                  message.uuid === getUUID() ? (
-                    <div
-                      className="flex justify-end"
-                      key={`message-${message.clientID}-${i}`}
-                    >
-                      <div className="flex justify-end bg-slate-900 border-slate-700/40 border max-w-[85%] text-neutral-100 pr-4 pl-5 py-3 rounded-l-3xl rounded-br-3xl rounded-tr-md">
-                        <span className="break-words whitespace-pre-line ">
-                          {message.value}
-                        </span>
-                      </div>
-                    </div>
-                  ) : (
-                    <div
-                      key={`message-${message.clientID}-${i}`}
-                      className="relative mb-4"
-                    >
-                      <div className="max-w-[85%] flex">
-                        <div className="flex flex-col bg-slate-950 border border-slate-700/50 pl-4 pr-8 py-3 gap-1 rounded-r-3xl rounded-bl-3xl rounded-tl-md">
-                          <span className="font-bold text-sm uppercase  text-orange-600">
-                            {message.username}
-                          </span>
-                          <span className="break-words whitespace-pre-line  text-neutral-300">
-                            {message.value}
-                          </span>
-                        </div>
-                      </div>
-                      <span className="absolute text-[12px] pl-2 text-neutral-400">
-                        {' '}
-                        {getTimeDisplay(message.time)}
-                      </span>
-                    </div>
-                  )
-                )}
-              </div>
+              <div className="flex flex-col gap-4">{messageItem}</div>
               <div className="flex flex-col gap-4">
                 {messageTypingsList.map((typingMessage, i) => (
                   <div key={`typing_message-${typingMessage.clientID}-${i}`}>
