@@ -116,9 +116,21 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
 
     const handleMessage = (message: TMessage) => {
       setMessages((prevMessages) => {
+        // Add the new message to the end of the array
         const newMessages = [...prevMessages, message];
-        window.localStorage.setItem('messages', JSON.stringify(newMessages));
-        return newMessages;
+
+        // Check if truncation is needed
+        const limitedMessages =
+          newMessages.length > 4900 ? newMessages.slice(-4900) : newMessages;
+
+        // Save the updated array to localStorage
+        window.localStorage.setItem(
+          'messages',
+          JSON.stringify(limitedMessages)
+        );
+
+        // Update the state with the truncated array (if applicable)
+        return limitedMessages;
       });
     };
 
@@ -248,7 +260,9 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
               </span>
             </div>
           </div>
-          <div className="absolute -bottom-5 left-0"><DisplayTime time={message.time} /></div>
+          <div className="absolute -bottom-5 left-0">
+            <DisplayTime time={message.time} />
+          </div>
         </div>
       )
     );
