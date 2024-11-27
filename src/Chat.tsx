@@ -96,7 +96,7 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
     const input = document.getElementById('input') as HTMLInputElement;
 
     const handleChange = (e: Event) => {
-      if (e.target instanceof HTMLInputElement) {
+      if (e.target instanceof HTMLTextAreaElement) {
         socket.emit('typing', e.target.value);
       }
     };
@@ -125,6 +125,8 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
     input?.addEventListener('input', handleChange);
 
     const handleTyping = (typingMessage: TMessageTyping) => {
+
+      console.log(typingMessage)
       if (typingMessage.type === 'typing' && typingMessage.uuid !== getUUID()) {
         setTypingMessage((preTypingMessages) => ({
           ...preTypingMessages,
