@@ -46,6 +46,8 @@ type TMessageTyping = {
   type: 'remove' | 'typing';
 };
 
+const persistenceMsgLimit = 1500;
+
 const storedMessages = localStorage.getItem('messages')
   ? (JSON.parse(localStorage.getItem('messages') ?? '') as TMessage[])
   : [];
@@ -121,7 +123,9 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
 
         // Check if truncation is needed
         const limitedMessages =
-          newMessages.length > 4900 ? newMessages.slice(-4900) : newMessages;
+          newMessages.length > persistenceMsgLimit
+            ? newMessages.slice(-1 * persistenceMsgLimit)
+            : newMessages;
 
         // Save the updated array to localStorage
         window.localStorage.setItem(
