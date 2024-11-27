@@ -246,7 +246,7 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
                           <span className="font-bold text-sm uppercase  text-orange-600">
                             {message.username}
                           </span>
-                          <span className="break-words whitespace-pre-line font-light text-neutral-300">
+                          <span className="break-words whitespace-pre-line  text-neutral-300">
                             {message.value}
                           </span>
                         </div>
@@ -267,7 +267,7 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
                         <span className="font-bold text-sm uppercase text-red-500">
                           {typingMessage.username} IS TYPING...
                         </span>
-                        <span className="break-words font-light whitespace-pre-line text-white">
+                        <span className="break-words  whitespace-pre-line text-white">
                           {typingMessage.value}
                         </span>
                       </div>
