@@ -22,9 +22,10 @@ export default function ActiveMembers({
   return (
     <div
       style={{
-        display: show ? 'flex' : 'none',
+        right: show ? '0' : '-100%',
+        opacity: show? '1' : '0'
       }}
-      className="left-0 right-0 w-full h-full bg-slate-900 absolute z-30 flex flex-col"
+      className="right-[-100%] opacity-0 transition-all duration-300 top-[0] w-full h-full bg-slate-900 absolute z-30 flex flex-col"
     >
       <div className="sm:py-3.5 py-2.5 flex items-center relative justify-center">
         <h1 className="sm:text-lg text-orange-500 flex items-center gap-1 font-semibold">

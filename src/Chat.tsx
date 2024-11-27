@@ -284,7 +284,7 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
         />
         <div
           ref={messagesBox}
-          className="flex-1 bg-gradient-to-tl from-[#0a0d1a] to-slate-900/40 p-4 overflow-x-hidden flex flex-col gap-4 rounded-xl"
+          className="flex-1 bg--[#0a0d1a]  p-4 overflow-x-hidden flex flex-col gap-4 rounded-xl"
         >
           {messageTypingsList.length < 1 && messages.length < 1 ? (
             <div className="text-orange-500">
