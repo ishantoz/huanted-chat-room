@@ -315,13 +315,16 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
               <div className="flex flex-col gap-4">{messageItem}</div>
               <div className="flex flex-col gap-4">
                 {messageTypingsList.map((typingMessage, i) => (
-                  <div key={`typing_message-${typingMessage.clientID}-${i}`}>
-                    <div className="max-w-[85%] flex">
-                      <div className="flex flex-col bg-slate-950 pl-4 pr-8 py-3 gap-1 rounded-r-3xl rounded-bl-3xl rounded-tl-md">
-                        <span className="font-bold text-sm uppercase text-red-500">
-                          {typingMessage.username} IS TYPING...
+                  <div
+                    key={`typing_message-${typingMessage.clientID}-${i}`}
+                    className="relative mb-4"
+                  >
+                    <div className="max-w-[85%] flex ">
+                      <div className="max-w-full flex flex-col bg-slate-950 pl-4 pr-8 py-3 gap-1 rounded-r-3xl rounded-bl-3xl rounded-tl-md">
+                        <span className="font-bold text-sm uppercase  text-red-500">
+                          {typingMessage.username}
                         </span>
-                        <span className="break-words  whitespace-pre-line text-white">
+                        <span className="break-words whitespace-pre-line text-neutral-300">
                           {typingMessage.value}
                         </span>
                       </div>
