@@ -266,7 +266,7 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
             </div>
           </div>
           <div className="absolute -bottom-5 left-0">
-            <DisplayTime time={message.time} />
+            <DisplayTime prefix="Sent" time={message.time} />
           </div>
         </div>
       )
