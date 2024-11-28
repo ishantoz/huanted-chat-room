@@ -247,15 +247,15 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
           key={`message-${message.clientID}-${i}`}
         >
           <div className="flex justify-end bg-slate-900 border-slate-700/40 border max-w-[85%] text-neutral-100 pr-4 pl-5 py-3 rounded-l-3xl rounded-br-3xl rounded-tr-md">
-            <span className="break-words whitespace-pre-line w-full">
+            <span className="break-words whitespace-pre-line max-w-full">
               {message.value}
             </span>
           </div>
         </div>
       ) : (
         <div key={`message-${message.clientID}-${i}`} className="relative mb-4">
-          <div className="max-w-[85%]">
-            <div className="flex flex-col bg-slate-950 border border-slate-700/50 pl-4 pr-8 py-3 gap-1 rounded-r-3xl rounded-bl-3xl rounded-tl-md">
+          <div className="max-w-[85%] flex ">
+            <div className="max-w-full flex flex-col bg-slate-950 border border-slate-700/50 pl-4 pr-8 py-3 gap-1 rounded-r-3xl rounded-bl-3xl rounded-tl-md">
               <span className="font-bold text-sm uppercase  text-orange-600">
                 {message.username}
               </span>
