@@ -247,7 +247,7 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
           key={`message-${message.clientID}-${i}`}
         >
           <div className="flex justify-end bg-slate-900 border-slate-700/40 border max-w-[85%] text-neutral-100 pr-4 pl-5 py-3 rounded-l-3xl rounded-br-3xl rounded-tr-md">
-            <span className="break-words whitespace-pre-line ">
+            <span className="break-words whitespace-pre-line w-full">
               {message.value}
             </span>
           </div>
