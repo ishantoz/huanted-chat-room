@@ -58,7 +58,7 @@ export default function ActiveMembers({
               <span className="text-sm text-green-400">Active</span>
             </div>
             <div className="flex">
-              <DisplayTime prefix="Joined at" time={member.joined_at} />
+              <DisplayTime prefix="Joined" time={member.joined_at} />
             </div>
           </div>
         ))}
