@@ -217,6 +217,7 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
 
   const handleSendMessage = () => {
     const input = document.getElementById('input') as HTMLInputElement;
+    input.style.height = 'auto';
     if (input && input.value) {
       socket.emit('chat message', {
         value: input.value,
@@ -382,7 +383,6 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
                   e.preventDefault();
                   const field = e.currentTarget;
                   if (field instanceof HTMLTextAreaElement) {
-                    field.style.height = 'auto';
                     handleSendMessage();
                   }
                 }
