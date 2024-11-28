@@ -274,8 +274,8 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
   }, [messages]);
 
   return (
-    <div className="h-screen flex pt-5 justify-center">
-      <div className="h-[90%] border flex flex-col px-2 rounded-xl max-w-xl mx-auto overflow-hidden border-slate-800/80 bg-gray-950 w-full relative">
+    <div className="h-screen flex items-center justify-center">
+      <div className="h-[95%] border flex flex-col px-2 rounded-xl max-w-xl mx-auto overflow-hidden border-slate-800/80 bg-gray-950 w-full relative">
         <header className="bg-slate-950 sm:py-4 px-3 py-3 flex justify-between gap-5 items-center">
           <h1 className="text-white max-sm:text-sm font-semibold text-xl">
             🎃 HAUNTED CHAT ROOM 👻
