@@ -80,7 +80,6 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
 
     socket = io(import.meta.env.VITE_WS_URL ?? 'https://uqify.com', {
       autoConnect: false,
-      transports: ['polling'],
       query: {
         username,
         uuid: getUUID(),
