@@ -13,8 +13,6 @@ type TUser = {
   avatar?: string;
 };
 
-localforage.setDriver(localforage.LOCALSTORAGE)
-
 const getUser = async () => {
   let user: TUser | null = await localforage.getItem('user');
   if (user) {
