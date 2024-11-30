@@ -264,7 +264,7 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
     <>
       {socket && socket.connected && user && !isMessagesLoading ? (
         <div className="h-screen flex items-center justify-center">
-          <div className="h-[95%] border flex flex-col px-2 rounded-xl max-w-xl mx-auto overflow-hidden border-slate-800/80 bg-gray-950 w-full relative">
+          <div className="h-[95%] border flex flex-col pl-2 rounded-xl max-w-xl mx-auto overflow-hidden border-slate-800/80 bg-gray-950 w-full relative">
             <header className="bg-slate-950 sm:py-4 px-3 py-3 flex justify-between gap-5 items-center">
               <h1 className="text-white max-sm:text-sm font-semibold text-xl">
                 🎃 HAUNTED CHAT ROOM 👻
@@ -390,7 +390,7 @@ function MessagesBox({
   messageTypingsList: TMessageTyping[];
 }) {
   const messagesBox = useRef<HTMLDivElement | null>(null);
-  console.log(messageTypingsList);
+  const scrollStopAtBottom = useRef(true);
 
   useLayoutEffect(() => {
     if (messagesBox.current) {
@@ -399,10 +399,21 @@ function MessagesBox({
   }, [messages]);
 
   useEffect(() => {
-    if (messagesBox.current) {
+    if (messagesBox.current && scrollStopAtBottom.current) {
       messagesBox.current.scrollTop = messagesBox.current.scrollHeight;
     }
   }, [messageTypingsList]);
+
+  useEffect(() => {
+    const handleMessageBoxScrollEnd = (ev: Event) => {
+      console.log(ev);
+    };
+    const currentBox = messagesBox.current;
+    currentBox?.addEventListener('scroll', handleMessageBoxScrollEnd);
+    return () => {
+      currentBox?.removeEventListener('scroll', handleMessageBoxScrollEnd);
+    };
+  }, []);
 
   const messageItem = useMemo(() => {
     return messages.map((message, i) =>
@@ -440,7 +451,7 @@ function MessagesBox({
   return (
     <div
       ref={messagesBox}
-      className="flex-1 bg-[#0a0d1a] to-slate-900/40 p-4 overflow-x-hidden flex flex-col gap-4 rounded-xl"
+      className="flex-1 bg-[#0a0d1a] to-slate-900/40 p-4 overflow-x-hidden custom-style-scroll flex flex-col gap-4 rounded-xl overflow-y-scroll"
     >
       {messageTypingsList.length < 1 && messages.length < 1 ? (
         <div className="text-orange-500">
