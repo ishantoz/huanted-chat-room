@@ -18,16 +18,16 @@ export default function ChatLayout({
           <MessageForm />
         </div>
         <div className="absolute left-0 top-0 right-0 bottom-0 bg-[#0a0d1a] rounded-xl pointer-events-none z-[-1]">
-          <span className="absolute top-[0] left-[40%] max-sm:text-[4.5rem] text-[6rem] opacity-[0.04] rotate-6">👻</span>
-          <span className="absolute top-[20%] right-[5%] max-sm:text-[2.5rem] text-[4rem] opacity-5">☠️</span>
-          <span className="absolute top-[10%] left-[5%] max-sm:text-[2.5rem] text-[4rem] opacity-5">🪦</span>
-          <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-sm:text-[4.5rem] text-[8rem] opacity-[0.05]">🎃</span>
-          <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-sm:text-[4.5rem] mt-[10rem] rotate-45 ml-[-10rem] text-[6rem] opacity-[0.04]">🎃</span>
-          <span className="absolute top-[30%] left-[4%] max-sm:text-[4rem] text-[6rem] opacity-5">🕸️</span>
-          <span className="absolute bottom-[0] left-[2%] max-sm:text-[4rem] text-[6rem] opacity-5">👻</span>
-          <span className="absolute bottom-[0] right-[2%] max-sm:text-[4rem] text-[6rem] opacity-5">🎃</span>
-          <span className="absolute top-[20%] right-1/2 max-sm:text-[4.5rem] text-[5rem] opacity-[0.05]">🧛</span>
-          <span className="absolute top-[60%] right-[5%] max-sm:text-[3.5rem] text-[5rem] opacity-5">🧟</span>
+          <span className="absolute top-[0] left-[40%] max-sm:text-[4.5rem] text-[6rem] opacity-[0.11] rotate-6">👻</span>
+          <span className="absolute top-[20%] right-[5%] max-sm:text-[2.5rem] text-[4rem] opacity-[0.11]">☠️</span>
+          <span className="absolute top-[10%] left-[5%] max-sm:text-[2.5rem] text-[4rem] opacity-[0.11]">🪦</span>
+          <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-sm:text-[4.5rem] text-[8rem] opacity-[0.11]">🎃</span>
+          <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-sm:text-[4.5rem] mt-[10rem] rotate-45 ml-[-10rem] text-[6rem] opacity-[0.11]">🎃</span>
+          <span className="absolute top-[30%] left-[4%] max-sm:text-[4rem] text-[6rem] opacity-[0.11]">🕸️</span>
+          <span className="absolute bottom-[0] left-[2%] max-sm:text-[4rem] text-[6rem] opacity-[0.11]">👻</span>
+          <span className="absolute bottom-[0] right-[2%] max-sm:text-[4rem] text-[6rem] opacity-[0.11]">🎃</span>
+          <span className="absolute top-[20%] right-1/2 max-sm:text-[4.5rem] text-[5rem] opacity-[0.11]">🧛</span>
+          <span className="absolute top-[60%] right-[5%] max-sm:text-[3.5rem] text-[5rem] opacity-[0.11]">🧟</span>
         </div>
       </div>
     </div>

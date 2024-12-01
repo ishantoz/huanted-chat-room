@@ -6,7 +6,7 @@ export default function BG() {
         const randomTop = `${Math.random() * 100}%`;
         const randomLeft = `${Math.random() * 100}%`;
         const randomSize = `${Math.random() * 5 + 2}rem`; // Sizes between 2rem and 7rem
-        const randomOpacity = Math.random() * 0.4 + 0.1; // Opacity between 0.1 and 0.6
+        const randomOpacity = Math.random() * 0.6 + 0.3; // Opacity between 0.1 and 0.6
 
         // Randomly select an emoji from a horror-themed list
         const emojis = [
