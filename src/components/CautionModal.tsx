@@ -44,7 +44,7 @@ const CautionModal: React.FC<CautionModalProps> = ({
       >
         <h2
           id="modal-title"
-          className="text-3xl font-metal tracking-wider font-bold text-orange-500 mb-6 flex items-center"
+          className="text-3xl font-matal tracking-wider font-bold text-orange-500 mb-6 flex items-center"
         >
           <span className="mr-2">⚠️</span> Caution{' '}
           <span className="ml-2">👻</span>
