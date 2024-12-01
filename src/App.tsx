@@ -2,6 +2,7 @@ import { useState } from 'react';
 import CautionModal from './components/CautionModal';
 import { Chat } from './components/Chat';
 import { Toaster } from 'sonner';
+import BG from "./components/bg";
 
 export default function App() {
   const [hasConcent, setConcent] = useState(
@@ -38,6 +39,7 @@ export default function App() {
         position="top-center"
         
       />
+      <BG />
     </>
   );
 }
