@@ -34,6 +34,13 @@ html {
 }
 
 @layer components {
+
+  body{
+    @apply antialiased font-faculty;
+    background-color: #0a0d1a;
+    color: white;
+  }
+
   .custom-style-scroll::-webkit-scrollbar {
     width: 8px;
   }
@@ -55,5 +62,6 @@ html {
   .custom-text-area-style-scroll::-webkit-scrollbar-thumb {
     @apply bg-orange-500 rounded-lg transition-colors;
   }
+
   
 }

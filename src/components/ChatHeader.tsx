@@ -8,16 +8,16 @@ export default function ChatHeader({
   const { handleShowActiveMembers, countMember } = useChat();
 
   return (
-    <header className="sm:py-4 py-3 flex justify-between gap-5 items-center pr-4 px-2">
-      <h1 className="text-white max-sm:text-sm font-semibold text-xl">
-        🎃 HAUNTED CHAT ROOM 👻
+    <header className="sm:py-5 py-4 flex justify-between gap-5 items-center pr-4 px-4">
+      <h1 className="max-sm:text-base font-semibold text-xl font-matal tracking-widest text-orange-600">
+        HAUNTED CHAT ROOM 
         <br />
       </h1>
       <button
         onClick={handleShowActiveMembers}
         className="hover:underline text-orange-500 font-bold"
       >
-        <span>Active: {countMember}</span>
+        <span className="font-matal tracking-widest">Active: {countMember}</span>
       </button>
       <button
         className="text-xl active:scale-95 max-sm:text-lg"

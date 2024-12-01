@@ -16,7 +16,7 @@ export default function ActiveMembers() {
       className="right-[-100%] opacity-0 transition-all duration-300 top-[0] w-full h-full bg-slate-900 absolute z-30 flex flex-col"
     >
       <div className="sm:py-3.5 py-2.5 flex items-center relative justify-center">
-        <h1 className="sm:text-lg text-orange-500 flex items-center gap-1 font-semibold">
+        <h1 className="sm:text-lg text-orange-500 flex items-center gap-1 font-semibold font-metal tracking-widest">
           <span> Active users:</span>{' '}
           <span className="mt-[2.4px]">{formatNumber(members.length)}</span>
         </h1>
@@ -35,11 +35,11 @@ export default function ActiveMembers() {
           >
             <div>
               {user.uuid === member.uuid ? (
-                <h3 className="text-blue-500 font-semibold cursor-pointer hover:underline">
+                <h3 className="text-blue-500 font-metal tracking-widest font-semibold cursor-pointer hover:underline">
                   You ({member.username})
                 </h3>
               ) : (
-                <h3 className="text-neutral-200 font-semibold cursor-pointer hover:underline">
+                <h3 className="text-neutral-200 font-metal tracking-widest font-semibold cursor-pointer hover:underline">
                   {member.username}
                 </h3>
               )}

@@ -10,8 +10,8 @@ export default function ChatLayout({
 }) {
   return (
     <div className="h-screen flex items-center justify-center">
-      <div className="relative h-[95%] max-w-xl w-full z-[1000]">
-        <div className="h-full w-full border flex flex-col pl-2 rounded-xl mx-auto overflow-hidden bg-slate-900/10 border-slate-800/80  relative max-w-xl">
+      <div className="relative sm:h-[95%] h-full max-w-xl w-full z-[1000]">
+        <div className="h-full w-full sm:border flex flex-col pl-2 rounded-xl mx-auto overflow-hidden bg-slate-900/10 border-slate-800/60  relative max-w-xl">
           <ChatHeader handleOpenConcent={handleOpenConcent} />
           <ActiveMembers />
           <MessagesBox />

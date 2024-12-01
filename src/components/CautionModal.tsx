@@ -33,7 +33,7 @@ const CautionModal: React.FC<CautionModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4 sm:p-6 md:p-8">
+    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center  p-4 sm:p-6 md:p-8 z-[99990]">
       <div
         ref={modalRef}
         className="bg-gray-900 p-4 sm:p-6 md:p-8 rounded-lg w-full max-w-2xl shadow-md shadow-orange-500/50 border-2 border-orange-500 max-h-[80vh] overflow-y-auto"
@@ -44,17 +44,17 @@ const CautionModal: React.FC<CautionModalProps> = ({
       >
         <h2
           id="modal-title"
-          className="text-3xl font-bold text-orange-500 mb-6 flex items-center"
+          className="text-3xl font-metal tracking-wider font-bold text-orange-500 mb-6 flex items-center"
         >
           <span className="mr-2">⚠️</span> Caution{' '}
           <span className="ml-2">👻</span>
         </h2>
-        <div className="text-gray-300 space-y-4 pr-2">
-          <p>
+        <div className="text-gray-300 space-y-10 pr-2 ">
+          <p className="">
             Welcome, brave soul, to the Haunted Chat Room! Before you venture
             further into this spooky realm, please be aware of the following:
           </p>
-          <ol className="list-decimal list-inside space-y-2">
+          <ol className="list-decimal list-inside space-y-4">
             <li>
               This chat room is for{' '}
               <span className="text-orange-400 font-semibold">
