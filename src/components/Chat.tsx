@@ -45,16 +45,12 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
         console.log(socket.connected); // false
       };
 
-      const handleIOError = () => {
-        setError(true);
-      };
+     
       socket.on('connect', handleConntect);
-      socket.io.on('error', handleIOError);
       socket.on('disconnect', handleDisconnect);
       return () => {
         socket.off('connect', handleConntect);
         socket.off('disconnect', handleDisconnect);
-        socket.io.off('error', handleIOError);
       };
     }
   }, [user]);
