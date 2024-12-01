@@ -354,7 +354,7 @@ export function Chat({ handleOpenConcent }: { handleOpenConcent: () => void }) {
               </div>
               <button
                 type="submit"
-                className="flex rounded-xl bg-primary p-[0.25rem] text-primary-foreground transition active:scale-[0.9] active:bg-primary-dark items-center mb-1 bg-orange-500 text-black"
+                className="flex rounded-xl bg-primary p-[0.25rem] text-primary-foreground transition active:scale-[0.9] active:bg-primary-dark items-center mb-1 bg-orange-500 text-black mr-3"
               >
                 <span className="sm:h-7 sm:w-7 h-6 w-6">
                   <ArrowOutline />
