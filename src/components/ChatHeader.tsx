@@ -9,7 +9,7 @@ export default function ChatHeader({
 
   return (
     <header className="sm:py-5 py-4 flex justify-between gap-5 items-center pr-4 px-4">
-      <h1 className="max-sm:text-base font-semibold text-xl font-metal tracking-widest ">
+      <h1 className="max-sm:text-base text-orange-500 font-semibold text-xl font-metal tracking-widest ">
         HAUNTED CHAT ROOM 
         <br />
       </h1>
