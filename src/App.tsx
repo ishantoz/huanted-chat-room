@@ -36,10 +36,7 @@ export default function App() {
         expand
         richColors
         position="top-center"
-        style={{
-          background: '#1f1f1f',
-          color: '#ffffff',
-        }}
+        
       />
     </>
   );
