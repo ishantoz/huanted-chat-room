@@ -1,29 +1,17 @@
-import DisplayTime from './components/DisplayTime';
-import { formatNumber } from './lib/utils';
+import DisplayTime from './/DisplayTime';
+import { formatNumber } from '../lib/utils';
+import { useChat } from './ChatProvider';
 
-export type TMemember = {
-  username: string;
-  joined_at: string;
-  uuid: string;
-  clientID: string;
-};
 
-export default function ActiveMembers({
-  handleShowActiveMembers,
-  show,
-  uuid,
-  members,
-}: {
-  handleShowActiveMembers: () => void;
-  members: TMemember[];
-  show: boolean;
-  uuid: string;
-}) {
+export default function ActiveMembers() {
+  const { members } = useChat();
+  const {handleShowActiveMembers, showActiveMembers, user } = useChat();
+
   return (
     <div
       style={{
-        right: show ? '0' : '-100%',
-        opacity: show? '1' : '0'
+        right: showActiveMembers ? '0' : '-100%',
+        opacity: showActiveMembers ? '1' : '0',
       }}
       className="right-[-100%] opacity-0 transition-all duration-300 top-[0] w-full h-full bg-slate-900 absolute z-30 flex flex-col"
     >
@@ -46,7 +34,7 @@ export default function ActiveMembers({
             className="px-5 rounded-xl py-3 border border-slate-600/20 bg-slate-900/60 flex flex-wrap  justify-between gap-3 items-end"
           >
             <div>
-              {uuid === member.uuid ? (
+              {user.uuid === member.uuid ? (
                 <h3 className="text-blue-500 font-semibold cursor-pointer hover:underline">
                   You ({member.username})
                 </h3>

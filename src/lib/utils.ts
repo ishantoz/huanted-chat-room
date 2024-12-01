@@ -1,4 +1,14 @@
 import { format, formatDistanceToNow } from 'date-fns';
+import localforage from 'localforage';
+import { TUser } from '../type';
+
+export function delay(duration: number) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(duration);
+    }, duration);
+  });
+}
 
 export function formatNumber(num: number) {
   if (num >= 1e6) return (num / 1e6).toFixed(1) + 'm';
@@ -28,11 +38,6 @@ export const getTimeDisplay = (utcTimestamp: string | Date): string => {
   // Precomputed constants for readability
   const SECONDS_IN_A_MINUTE = 60;
   const SECONDS_IN_A_DAY = 86400;
-
-  // Display "now" for differences under 15 seconds
-  if (timeDiffInSeconds < 10) {
-    return 'now';
-  }
 
   // Display seconds for differences under a minute
   if (timeDiffInSeconds < SECONDS_IN_A_MINUTE) {
@@ -64,3 +69,23 @@ export function textareaAutoAdjustHeight(
     }
   }
 }
+
+export const getUser = async () => {
+  let user: TUser | null = await localforage.getItem('user');
+  if (user) {
+    return user;
+  }
+
+  let username: string | null;
+  do {
+    username = window.prompt('Enter your name:');
+  } while (!username);
+  const uuid = crypto.randomUUID();
+  user = {
+    username: username,
+    uuid,
+    avatar: '',
+  };
+  localforage.setItem('user', user);
+  return user;
+};

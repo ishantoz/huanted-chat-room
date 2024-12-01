@@ -20,36 +20,28 @@ export default function DisplayTime({
         return;
       }
 
-      // If the time is less than a minute ago, update every second
       if (timeDiffInMilliseconds <= 1000 * 60) {
-        delay = 1000; // 1 second
-      }
-      // If the time is within the last hour, update every minute
-      else if (timeDiffInMilliseconds <= 1000 * 60 * 60) {
-        delay = 1000 * 60; // 1 minute
-      }
-      // If the time is within the last 24 hours, update every hour
-      else if (timeDiffInMilliseconds < 1000 * 60 * 60) {
-        delay = 1000 * 60 * 60; // 1 hour
+        delay = 1000;
+      } else if (timeDiffInMilliseconds <= 1000 * 60 * 60) {
+        delay = 1000 * 60;
+      } else if (timeDiffInMilliseconds < 1000 * 60 * 60) {
+        delay = 1000 * 60 * 60;
       }
 
-      // Set a new interval with dynamic delay
       const intervalId = setInterval(() => {
-        // Recalculate time difference on each interval
         const newTimeDiffInMilliseconds =
           new Date().getTime() - new Date(time).getTime();
         let newDelay = 0;
 
         if (newTimeDiffInMilliseconds <= 1000 * 60) {
-          newDelay = 1000; // 1 second
+          newDelay = 1000;
         } else if (newTimeDiffInMilliseconds <= 1000 * 60 * 60) {
-          newDelay = 1000 * 60; // 1 minute
+          newDelay = 1000 * 60;
         }
 
-        // Update the time display and reset the interval if necessary
         const newTimeDisplay = getTimeDisplay(time);
         setTimeDisplay(newTimeDisplay);
-        // If the delay changed, clear the previous interval and set a new one
+
         if (newDelay !== delay) {
           clearInterval(intervalId);
           updateTimeDisplay();
@@ -59,9 +51,8 @@ export default function DisplayTime({
       return () => clearInterval(intervalId);
     };
 
-    // Start the update logic
     return updateTimeDisplay();
-  }, [time]); // Re-run effect when `time` prop changes
+  }, [time]);
 
   return (
     <span className="text-[12px] pl-2 text-neutral-400">

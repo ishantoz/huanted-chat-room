@@ -36,7 +36,7 @@ const CautionModal: React.FC<CautionModalProps> = ({
     <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4 sm:p-6 md:p-8">
       <div
         ref={modalRef}
-        className="bg-gray-900 p-4 sm:p-6 md:p-8 rounded-lg w-full max-w-2xl border-2 border-orange-500 shadow-lg shadow-orange-500/50 max-h-[90vh] overflow-y-auto"
+        className="bg-gray-900 p-4 sm:p-6 md:p-8 rounded-lg w-full max-w-2xl shadow-md shadow-orange-500/50 border-2 border-orange-500 max-h-[80vh] overflow-y-auto"
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
