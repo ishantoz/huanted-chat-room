@@ -46,7 +46,7 @@ html {
   }
 
   .custom-style-scroll::-webkit-scrollbar-track {
-    @apply bg-[#0a0d1a] rounded-lg;
+    @apply bg-transparent rounded-lg;
   }
 
   .custom-style-scroll::-webkit-scrollbar-thumb {
