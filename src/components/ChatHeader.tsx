@@ -10,7 +10,7 @@ export default function ChatHeader({
 
   return (
     <header className="sm:py-5 py-4 flex justify-between gap-5 items-center pr-4 px-4">
-      <h1 className="max-sm:text-base font-semibold text-lg font-metal tracking-widest text-blue-300/80">
+      <h1 className="max-sm:text-base font-semibold text-lg font-metal tracking-widest text-blue-400/90">
         HAumtD ChaT RoOM 
         <br />
       </h1>

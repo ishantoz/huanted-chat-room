@@ -84,7 +84,7 @@ export default function MessageForm() {
 
       <div className="w-full flex items-end">
         <textarea
-          className="flex-1 focus:ring-offset-2 outline-0 focus:ring-2 py-2.5 pl-3 rounded-md focus:ring-offset-gray-900 border-slate-700/50 focus:ring-blue-400 border bg-gray-900/80 text-white max-sm:text-sm resize-none placeholder:select-none placeholder:text-neutral-500 w-full custom-style-scroll custom-text-area-style-scroll  font-faculty placeholder:tracking-wider"
+          className="flex-1 focus:ring-offset-2 outline-0 focus:ring-2 py-2.5 pl-3 rounded-md focus:ring-offset-gray-900 border-slate-700/50 focus:ring-blue-400 border bg-gray-900/80 text-white max-sm:text-sm resize-none placeholder:select-none placeholder:text-neutral-500 w-full custom-style-scroll custom-text-area-style-scroll  font-faculty placeholder:tracking-wider text-neutral-300/90"
           ref={textInputField}
           rows={1}
           autoComplete="off"

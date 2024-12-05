@@ -10,7 +10,7 @@ export default function ReciverMessageBubble({
     <div className="relative mb-4">
       <div className="max-w-[85%] flex ">
         <div className="max-w-full flex flex-col bg-slate-900 backdrop-blur-sm border border-slate-700/20 pl-4 pr-5 py-3 gap-1 rounded-r-3xl rounded-bl-3xl rounded-tl-md">
-          <span className="font-bold text-sm uppercase font-metal tracking-widest text-blue-500">
+          <span className="font-bold text-sm uppercase font-metal tracking-widest text-blue-400">
             {message.username}
           </span>
           <span className="break-words text-blue-100/85 whitespace-pre-line ">
