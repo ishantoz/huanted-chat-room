@@ -2,10 +2,9 @@ import DisplayTime from './/DisplayTime';
 import { formatNumber } from '../lib/utils';
 import { useChat } from './ChatProvider';
 
-
 export default function ActiveMembers() {
-  const { members } = useChat();
-  const {handleShowActiveMembers, showActiveMembers, user } = useChat();
+  const { members, countMember } = useChat();
+  const { handleShowActiveMembers, showActiveMembers, user } = useChat();
 
   return (
     <div
@@ -16,13 +15,13 @@ export default function ActiveMembers() {
       className="right-[-100%] opacity-0 transition-all duration-300 top-[0] w-full h-full bg-slate-900 absolute z-30 flex flex-col"
     >
       <div className="sm:py-3.5 py-2.5 flex items-center relative justify-center">
-        <h1 className="sm:text-lg text-orange-500 flex items-center gap-1 font-semibold font-metal tracking-widest">
+        <h1 className="sm:text-md flex items-center gap-1 font-semibold tracking-widest font-faculty text-blue-400 ">
           <span> Active users:</span>{' '}
-          <span className="mt-[2.4px]">{formatNumber(members.length)}</span>
+          <span className="mt-[2.4px]">{formatNumber(countMember)}</span>
         </h1>
         <button
           onClick={handleShowActiveMembers}
-          className="absolute left-3 sm:text-xl text-orange-500 active:scale-95"
+          className="absolute text-neutral-300 left-3 sm:text-xl  active:scale-95"
         >
           {'🡨'}
         </button>
@@ -35,7 +34,7 @@ export default function ActiveMembers() {
           >
             <div>
               {user.uuid === member.uuid ? (
-                <h3 className="text-blue-500 font-metal tracking-widest font-semibold cursor-pointer hover:underline">
+                <h3 className="text-blue-400 font-metal tracking-widest font-semibold cursor-pointer hover:underline">
                   You ({member.username})
                 </h3>
               ) : (
@@ -43,7 +42,7 @@ export default function ActiveMembers() {
                   {member.username}
                 </h3>
               )}
-              <span className="text-sm text-green-400">Active</span>
+              <span className="text-sm text-green-300">Active</span>
             </div>
             <div className="flex">
               <DisplayTime prefix="Joined" time={member.joined_at} />

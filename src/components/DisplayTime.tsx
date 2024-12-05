@@ -55,7 +55,7 @@ export default function DisplayTime({
   }, [time]);
 
   return (
-    <span className="text-[12px] pl-2 text-neutral-400">
+    <span className="text-xs pl-2 text-neutral-400/80">
       {prefix} {timeDisplay}
     </span>
   );

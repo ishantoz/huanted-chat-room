@@ -1,6 +1,6 @@
 export default function BG() {
   return (
-    <div className="absolute left-0 top-0 right-0 bottom-0 bg-[#0a0d1a] rounded-xl pointer-events-none z-[-1] overflow-hidden">
+    <div className="absolute left-0 top-0 right-0 bottom-0 bg-[#0a0d1a] rounded-xl pointer-events-none z-[-1] blur-[5px] overflow-hidden">
       {Array.from({ length: 20 }).map((_, index) => {
         // Generate random positions, sizes, and opacity
         const randomTop = `${Math.random() * 100}%`;
