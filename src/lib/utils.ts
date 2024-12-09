@@ -70,6 +70,26 @@ export function textareaAutoAdjustHeight(
   }
 }
 
+export function generateSecureUUID() {
+  const crypto = window.crypto;
+  const array = new Uint8Array(16);
+  crypto.getRandomValues(array);
+
+  // Set version 4 bits (UUID version)
+  array[6] = (array[6] & 0x0f) | 0x40;
+  // Set variant bits (UUID variant)
+  array[8] = (array[8] & 0x3f) | 0x80;
+
+  // Convert to UUID string format
+  return [...array]
+    .map(
+      (b, i) =>
+        (i === 4 || i === 6 || i === 8 || i === 10 ? '-' : '') +
+        b.toString(16).padStart(2, '0')
+    )
+    .join('');
+}
+
 export const getUser = async () => {
   let user: TUser | null = await localforage.getItem('user');
   if (user) {
@@ -80,7 +100,7 @@ export const getUser = async () => {
   do {
     username = window.prompt('Enter your name:');
   } while (!username);
-  const uuid = crypto.randomUUID();
+  const uuid = generateSecureUUID();
   user = {
     username: username,
     uuid,
