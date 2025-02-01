@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import MessageList from './MessageList';
 import EmptyAlert from './EmptyAlert';
 import TypingMessageList from './TypingMessageList';
@@ -8,6 +8,7 @@ import localforage from 'localforage';
 import { delay } from '../lib/utils';
 import MessageBoxError from './MessageBoxError';
 import MessageLoadingScreen from './MessageLoadingScreen';
+import { useChatScrollToBottomOnUpdate, useSmoothScroll } from '../hooks/use-scroll';
 
 const persistenceMsgLimit = 1500;
 
@@ -20,11 +21,13 @@ export function MessagesBox() {
     messagesError,
     setMessageError,
   } = useChat();
-  const messagesBox = useRef<HTMLDivElement | null>(null);
+  const [messagesBox, smoothScrollToBottom] = useSmoothScroll<HTMLDivElement>();
   const [messages, setMessages] = useState<TMessage[]>([]);
   const [typingMessagesList, setTypingMessage] = useState<{
     [key: string]: TMessageTyping;
   }>({});
+
+  const [hasMessageLoaded, setHasMessageLoaded] = useState(false);
 
   useEffect(() => {
     const handleFetchMessage = async () => {
@@ -101,13 +104,17 @@ export function MessagesBox() {
     if (messagesBox.current) {
       messagesBox.current.scrollTop = messagesBox.current.scrollHeight;
     }
-  }, [typingMessagesList]);
+  }, [messagesBox, typingMessagesList]);
 
   useLayoutEffect(() => {
-    if (messagesBox.current) {
+    if (messagesBox.current && !hasMessageLoaded) {
+      setHasMessageLoaded(true);
       messagesBox.current.scrollTop = messagesBox.current.scrollHeight;
     }
-  }, [messages]);
+  }, [hasMessageLoaded, messages, messagesBox]);
+
+  useChatScrollToBottomOnUpdate(messagesBox, [messages, typingMessages], smoothScrollToBottom);
+  
 
   if (messagesError) {
     return <MessageBoxError />;
