@@ -52,7 +52,7 @@ export function useChatScrollToBottomOnUpdate<T>(
       const contentHeight = container.scrollHeight;
 
       const distanceToBottom = contentHeight - (scrollPosition + visibleHeight);
-      const threshold = visibleHeight * 1.5; // 1.5 times the screen height
+      const threshold = visibleHeight * 0.08; // 1.5 times the screen height
 
       if (distanceToBottom < threshold) {
         requestAnimationFrame(() =>

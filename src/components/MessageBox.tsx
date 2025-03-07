@@ -100,11 +100,6 @@ export function MessagesBox() {
     return Object.values(typingMessagesList);
   }, [typingMessagesList]);
 
-  useEffect(() => {
-    if (messagesBox.current) {
-      messagesBox.current.scrollTop = messagesBox.current.scrollHeight;
-    }
-  }, [messagesBox, typingMessagesList]);
 
   useLayoutEffect(() => {
     if (messagesBox.current && !hasMessageLoaded) {
