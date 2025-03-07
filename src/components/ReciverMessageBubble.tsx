@@ -14,7 +14,7 @@ export default function ReciverMessageBubble({
             <span className="font-bold text-xs uppercase tracking-widest text-blue-400">
               {message.username}
             </span>
-            <span className="break-words text-blue-100/85 whitespace-pre-line ">
+            <span className="break-all text-blue-100/85 whitespace-pre-line ">
               {message.value}
             </span>
           </div>
