@@ -16,7 +16,7 @@ export default function TypingMessageList(props: TypingMessageListProps) {
           <div className="max-w-[85%] flex ">
             <div className="max-w-full flex flex-col bg-slate-900 pl-4 pr-5 rounded-r-3xl rounded-bl-3xl rounded-tl-md py-4">
               <div className="flex">
-                <span className="font-bold text-sm uppercase text-blue-400 flex items-center font-metal tracking-widest">
+                <span className="font-bold text-sm uppercase text-blue-400 flex items-center tracking-widest">
                   {typingMessage.username} is typing
                   <span className="flex gap-1 mt-[0.7rem] ml-[2.5px]">
                     <span className="w-1 h-1 rounded-full bg-blue-600 animate-[typing_1s_ease-in-out_infinite]"></span>
