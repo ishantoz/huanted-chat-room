@@ -100,6 +100,12 @@ export function MessagesBox() {
     return Object.values(typingMessagesList);
   }, [typingMessagesList]);
 
+  useEffect(() => {
+    if (messagesBox.current) {
+      messagesBox.current.scrollTop = messagesBox.current.scrollHeight;
+    }
+  }, [messagesBox, typingMessagesList]);
+
   useLayoutEffect(() => {
     if (messagesBox.current && !hasMessageLoaded) {
       setHasMessageLoaded(true);
@@ -108,6 +114,8 @@ export function MessagesBox() {
   }, [hasMessageLoaded, messages, messagesBox]);
 
   useChatScrollToBottomOnUpdate(messagesBox, [messages], smoothScrollToBottom);
+
+  useChatScrollToBottomOnUpdate(messagesBox, [messages, typingMessages], smoothScrollToBottom);
   
 
   if (messagesError) {
