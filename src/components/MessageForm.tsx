@@ -89,7 +89,6 @@ export default function MessageForm() {
           rows={1}
           autoCorrect="off"
           autoCapitalize="off"
-          spellCheck="true"
           autoComplete="off"
           placeholder="Type a spooky message"
           onBlur={() => {
