@@ -23,7 +23,7 @@ export default function ActiveMembers() {
           onClick={handleShowActiveMembers}
           className="absolute text-neutral-300 left-3 sm:text-xl  active:scale-95"
         >
-          {'🡨'}
+          {`< Back`}
         </button>
       </div>
       <div className="flex-1 bg-slate-950 rounded-xl overflow-x-hidden p-4 flex flex-col gap-3 border border-slate-600/20">
